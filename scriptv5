@@ -1,5 +1,5 @@
 
--- FULLY REWRITED DATA: 	29.11.2024, 3:30 AM | kirvZZ | script version (v1.4, Solara) | game version (v1.2.0) |
+-- FULLY REWRITED DATA: 	29.11.2024, 3:30 AM | kirvZZ | script version (v1.2, Solara) | game version (v1.2.0) |
 
 local PlayerService =					game:GetService("Players")
 local ReplicatedStorage = 				game:GetService("ReplicatedStorage")
@@ -36,7 +36,7 @@ function inm.loadscript()
 	}
 
 	--Customizing library before load
-	Values.ScriptName = "[ Rake Remastered ] — v1.2.0 | Solara Version 1.4"
+	Values.ScriptName = "[ Rake Remastered ] — v1.2.0 | Solara Version 1.2"
 	Values.ScriptColor = Color3.fromRGB(193, 199, 255)
 
 
@@ -277,10 +277,10 @@ function inm.loadscript()
 			
 			UiObjects.Label4.Text = ""
 			
-			UiObjects.Label5.Text = tostring("Kill-Aura: "..Values.KillAura)
-			UiObjects.Label6.Text = tostring("Hitbox: "..Values.Hitbox)
-			UiObjects.Label7.Text = tostring("FullBright: "..Values.FullBright)
-			UiObjects.Label8.Text = tostring("Third-Camera: "..Values.ThirdCamera)
+			UiObjects.Label5.Text = "Kill-Aura: "..tostring(Values.KillAura)
+			UiObjects.Label6.Text = "Hitbox: "..tostring(Values.Hitbox)
+			UiObjects.Label7.Text = "FullBright: "..tostring(Values.FullBright)
+			UiObjects.Label8.Text = "Third-Camera: "..tostring(Values.ThirdCamera)
 
 			
 			if seconds < 21 then
