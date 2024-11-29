@@ -5,6 +5,7 @@ local PlayerService =					game:GetService("Players")
 local ReplicatedStorage = 				game:GetService("ReplicatedStorage")
 local StarterGui =						game:GetService("StarterGui")
 local LocalPlayer = 					PlayerService.LocalPlayer
+local WS =								workspace
 
 local PlaceTable = { 2413927524 }
 local inm = {}
@@ -28,14 +29,14 @@ function inm.loadscript()
 	local Keybinds = {}
 
 	local Funcs = {}
-	
+
 	local MC = {
 		UPDTIME = 0.1,
 		IS_ENABLED = true,
 	}
-	
+
 	--Customizing library before load
-	Values.ScriptName = "[ Rake Remastered ] — v1.2.0 | Solara Version"
+	Values.ScriptName = "[ Rake Remastered ] — v1.2.0 | Solara Version 1.2"
 	Values.ScriptColor = Color3.fromRGB(193, 199, 255)
 
 
@@ -43,24 +44,24 @@ function inm.loadscript()
 	Libs.Splix = loadstring(game:HttpGet("https://raw.githubusercontent.com/kirvZZ/Rake/refs/heads/main/Library"))()
 	Windows.Window1 = Libs.Splix:New({Name = Values.ScriptName, Accent = Values.ScriptColor})
 
-	
+
 	Pages.Combat = Windows.Window1:Page({Name = "Combat"})
 	Pages.Visual = Windows.Window1:Page({Name = "Visual"})
 	Pages.Misc = Windows.Window1:Page({Name = "Misc"})
 
-	
+
 	-- Combat
 	Sections.StunStick = Pages.Combat:Section({Name = "StunStick", Side = "Left"})
-	
-	
+
+
 	-- Visual
 	--Sections.Esp1 = Pages.Visual:Section({Name = "Esp", Side = "Left"})
 	Sections.Fullbright = Pages.Visual:Section({Name = "FullBright", Side = "Left"})
-
+	Sections.StatUI = Pages.Visual:Section({Name = "Statistic UI", Side = "Right"})
 
 	-- Misc
---	Sections.SpeedHack = Pages.Misc:Section({Name = "Speed", Side = "Left"})
-	
+	--	Sections.SpeedHack = Pages.Misc:Section({Name = "Speed", Side = "Left"})
+
 	Sections.CameraHack = Pages.Misc:Section({Name = "Camera", Side = "Right"})
 
 	--Sections.Other = Pages.Misc:Section({Name = "Other", Side = "Right"})
@@ -76,21 +77,148 @@ function inm.loadscript()
 	Values.Hitbox =					false		-- LocalPlayer
 	Values.KillAura =				false		-- LocalPlayer
 	Values.FullBright =				false		-- LocalPlayer
-	
+	Values.StatUI =					false		-- LocalPlayer
+
 	-- Mods
 	Values.SpeedValue = 1
 	Values.MaxZoom = 15
-	
-	
-	
-	
+	Values.KillAuraDistance = 17
+
+	local UiObjects = {}
+
+	local Cfg = {
+		TextSize = 13,
+		FontS = 3,
+	}
+
 	local Rake = nil
 	local SS = nil
-	
-	
+
+
 	-- Funcs
 	for _,link in Loadstrings do
 		loadstring(game:HttpGet(link))()
+	end
+
+	pcall(function()
+		UiObjects.InsteadScreen = Instance.new("ScreenGui",game.CoreGui)
+		UiObjects.InsteadScreen.Name = "InsScreen"
+		UiObjects.InsteadScreen.ResetOnSpawn = false
+		UiObjects.InsteadScreen.IgnoreGuiInset = true
+		UiObjects.InsteadScreen.DisplayOrder = 999999999
+
+		UiObjects.Frame1 = Instance.new("Frame",UiObjects.InsteadScreen)
+		UiObjects.Frame1.Position = UDim2.new(0.907, 0,0.5, 0)
+		UiObjects.Frame1.Size = UDim2.new(0.185, 0,1, 0)
+		UiObjects.Frame1.BackgroundTransparency = 1
+		UiObjects.Frame1.Interactable = false
+		UiObjects.Frame1.AnchorPoint = Vector2.new(0.5,0.5)
+
+		UiObjects.UILL1 = Instance.new("UIListLayout",UiObjects.Frame1)
+		UiObjects.UILL1.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		UiObjects.UILL1.VerticalAlignment = Enum.VerticalAlignment.Center
+
+		UiObjects.Frame2 = Instance.new("Frame",UiObjects.Frame1)
+		UiObjects.Frame2.Position = UDim2.new(0.475, 0,0.5, 0)
+		UiObjects.Frame2.Size = UDim2.new(0.951, 0,0.946, 0)
+		UiObjects.Frame2.BackgroundTransparency = 1
+		UiObjects.Frame2.Interactable = false
+
+		UiObjects.UILL1 = Instance.new("UIListLayout",UiObjects.Frame2)
+		UiObjects.UILL1.HorizontalAlignment = Enum.HorizontalAlignment.Right
+		UiObjects.UILL1.VerticalAlignment = Enum.VerticalAlignment.Bottom
+
+		UiObjects.Label1 = Instance.new("TextLabel",UiObjects.Frame2)
+		UiObjects.Label1.Name = "Time"
+		UiObjects.Label1.Text = string.upper("Time: ")
+		UiObjects.Label1.Size = UDim2.new(0, 70,0, 15)
+		UiObjects.Label1.Font = Cfg.FontS
+		UiObjects.Label1.TextSize = Cfg.TextSize
+		UiObjects.Label1.BackgroundTransparency = 1
+		UiObjects.Label1.TextStrokeTransparency = 0.9
+		UiObjects.Label1.TextColor3 = Color3.fromRGB(255,255,255)
+		UiObjects.Label1.TextXAlignment = Enum.TextXAlignment.Right
+		UiObjects.Label1.TextYAlignment = Enum.TextYAlignment.Center
+
+		UiObjects.Label2 = Instance.new("TextLabel",UiObjects.Frame2)
+		UiObjects.Label2.Name = "RHealth"
+		UiObjects.Label2.Text = string.upper("Rake's Health: ")
+		UiObjects.Label2.Size = UDim2.new(0, 70,0, 15)
+		UiObjects.Label2.Font = Cfg.FontS
+		UiObjects.Label2.TextSize = Cfg.TextSize
+		UiObjects.Label2.BackgroundTransparency = 1
+		UiObjects.Label2.TextStrokeTransparency = 0.9
+		UiObjects.Label2.TextColor3 = Color3.fromRGB(255,255,255)
+		UiObjects.Label2.TextXAlignment = Enum.TextXAlignment.Right
+		UiObjects.Label2.TextYAlignment = Enum.TextYAlignment.Center
+
+		UiObjects.Label3 = Instance.new("TextLabel",UiObjects.Frame2)
+		UiObjects.Label3.Name = "Power"
+		UiObjects.Label3.Text = string.upper("Station Power: ")
+		UiObjects.Label3.Size = UDim2.new(0, 70,0, 15)
+		UiObjects.Label3.Font = Cfg.FontS
+		UiObjects.Label3.TextSize = Cfg.TextSize
+		UiObjects.Label3.BackgroundTransparency = 1
+		UiObjects.Label3.TextStrokeTransparency = 0.9
+		UiObjects.Label3.TextColor3 = Color3.fromRGB(255,255,255)
+		UiObjects.Label3.TextXAlignment = Enum.TextXAlignment.Right
+		UiObjects.Label3.TextYAlignment = Enum.TextYAlignment.Center
+	end)
+
+	Funcs.StatUi = function(Mode)
+		if Mode then
+			UiObjects.InsteadScreen.Enabled = true
+		else
+			UiObjects.InsteadScreen.Enabled = false
+		end
+
+		if Mode == true then
+			local resulttime = nil
+			local seconds = game:GetService("ReplicatedStorage").Timer.Value
+			local minutes
+			local remainingSeconds
+
+			minutes = math.floor(seconds / 60)
+			remainingSeconds = seconds % 60
+
+			resulttime = minutes..":"..remainingSeconds
+			if remainingSeconds < 10 then
+				resulttime = minutes..":0"..remainingSeconds
+			end
+
+			local rhp = nil
+			if WS:FindFirstChild("Rake") then
+				rhp = math.floor(WS["Rake"].Monster.Health/WS["Rake"].Monster.MaxHealth*100)
+			else
+				rhp = "0"
+			end
+
+			local pwrlvl = nil
+			local power = game:GetService("ReplicatedStorage").PowerValues.PowerValue
+			pwrlvl = math.floor(power.Value/power.MaxValue*100)
+
+			UiObjects.Label1.Text = string.upper("Time: "..resulttime)
+			UiObjects.Label2.Text = string.upper("Rake's Health: "..rhp).."%"
+			UiObjects.Label3.Text = string.upper("Station Power: "..pwrlvl).."%"
+
+			if seconds < 21 then
+				UiObjects.Label1.TextColor3 = Color3.fromRGB(255, 64, 64)
+			else
+				UiObjects.Label1.TextColor3 = Color3.fromRGB(255, 255, 255)
+			end
+
+			if pwrlvl < 5 then
+				UiObjects.Label1.TextColor3 = Color3.fromRGB(255, 64, 64)
+			else
+				UiObjects.Label1.TextColor3 = Color3.fromRGB(255, 255, 255)
+			end
+
+			if rhp < 5 then
+				UiObjects.Label1.TextColor3 = Color3.fromRGB(255, 64, 64)
+			else
+				UiObjects.Label1.TextColor3 = Color3.fromRGB(255, 255, 255)
+			end
+		end
 	end
 	
 	Funcs.ThirdCamera = function(Mode)
@@ -110,30 +238,31 @@ function inm.loadscript()
 			LocalPlayer.DevEnableMouseLock = false
 		end
 	end
-	
+
 	Funcs.Hitbox = function(Mode)
 		if not LocalPlayer.Character then return end 
 		local Stick = LocalPlayer.Character:FindFirstChild("StunStick") or LocalPlayer.Backpack:FindFirstChild("StunStick") or nil
 		if Stick == nil then SS = nil return else SS = Stick end
-		
+
 		if Mode then
 			Stick.HitPart.Size = Vector3.new(15,15,15)
 		else
 			Stick.HitPart.Size = Vector3.new(1.5,1.5,1.5)
 		end
 	end
-	
+
 	Funcs.KillAura = function(Mode)
-		if Rake and SS and LocalPlayer.Character then
-			if SS.Parent.Name == "Backpack" then return end
-			if (Rake:FindFirstChild("HumanoidRootPart").Position - LocalPlayer.Character["HumanoidRootPart"].Position).Magnitude < 14 then
-				SS:Activate()
+		if WS:FindFirstChild("Rake") then
+			if LocalPlayer.Character then
+				if LocalPlayer.Character:FindFirstChild("StunStick") then
+					if (LocalPlayer.Character["HumanoidRootPart"].Position - WS["Rake"]["HumanoidRootPart"].Position).Magnitude < Values.KillAuraDistance then
+						LocalPlayer.Character:FindFirstChild("StunStick"):Activate()
+					end
+				end
 			end
-		else
-			return
 		end
 	end
-	
+
 	coroutine.wrap(function()
 		while true do task.wait()
 			if Values.FullBright then
@@ -151,18 +280,18 @@ function inm.loadscript()
 			end
 		end
 	end)()
-	
-	
+
+
 	-- Main
 	coroutine.wrap(function()
 		while MC.IS_ENABLED do task.wait(MC.UPDTIME)
 			if Values.KillAura == true then Funcs.KillAura() end
 			if Values.Hitbox == true then Funcs.Hitbox(true) else Funcs.Hitbox(false) end
 			if Values.ThirdCamera == true then Funcs.ThirdCamera(true) else Funcs.ThirdCamera(false) end
-
+			if Values.StatUI == true then Funcs.StatUi(true) else Funcs.StatUi(false) end
 		end
 	end)()
-	
+
 	-- Window's interface
 
 
@@ -170,19 +299,23 @@ function inm.loadscript()
 	Sections.StunStick:Toggle({Title = "KillAura",Default = Values.KillAura,Callback = function(Default) 
 		Values.KillAura = Default
 	end})
-	
+
 	Sections.StunStick:Toggle({Title = "Hitbox",Default = Values.Hitbox,Callback = function(Default) 
 		Values.Hitbox = Default
 	end})
-	
+
 	Sections.CameraHack:Toggle({Title = "Camera",Default = Values.ThirdCamera,Callback = function(Default) 
 		Values.ThirdCamera = Default
 	end})
-	
-	Sections.Fullbright:Toggle({Title = "Camera",Default = Values.FullBright,Callback = function(Default) 
+
+	Sections.Fullbright:Toggle({Title = "FullBright",Default = Values.FullBright,Callback = function(Default) 
 		Values.FullBright = Default
 	end})
 	
+	Sections.StatUI:Toggle({Title = "Enabled",Default = Values.StatUI,Callback = function(Default) 
+		Values.StatUI = Default
+	end})
+
 	--[[Sections.SpeedHack:Slider({Name = "Speed-Modifier", Minimum = 0, Maximum = 20, Default = Values.SpeedValue, Decimals = 0.1, Pointer = Values.SpeedValue,Callback = function(Default)
 		Values.SpeedValue = Default
 		Funcs.Speed(3)
