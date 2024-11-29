@@ -213,10 +213,13 @@ function inm.loadscript()
 				UiObjects.Label1.TextColor3 = Color3.fromRGB(255, 255, 255)
 			end
 
-			if rhp < 5 then
-				UiObjects.Label1.TextColor3 = Color3.fromRGB(255, 64, 64)
-			else
-				UiObjects.Label1.TextColor3 = Color3.fromRGB(255, 255, 255)
+			
+			if WS:FindFirstChild("Rake") then
+				if rhp < 10 then
+					UiObjects.Label1.TextColor3 = Color3.fromRGB(255, 64, 64)
+				else
+					UiObjects.Label1.TextColor3 = Color3.fromRGB(255, 255, 255)
+				end
 			end
 		end
 	end
