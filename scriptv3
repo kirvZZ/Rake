@@ -1,5 +1,5 @@
 
--- FULLY REWRITED DATA: 	29.11.2024, 3:30 AM | kirvZZ | script version (v1.2, Solara) | game version (v1.2.0) |
+-- FULLY REWRITED DATA: 	29.11.2024, 3:30 AM | kirvZZ | script version (v1.3, Solara) | game version (v1.2.0) |
 
 local PlayerService =					game:GetService("Players")
 local ReplicatedStorage = 				game:GetService("ReplicatedStorage")
@@ -36,7 +36,7 @@ function inm.loadscript()
 	}
 
 	--Customizing library before load
-	Values.ScriptName = "[ Rake Remastered ] — v1.2.0 | Solara Version 1.2"
+	Values.ScriptName = "[ Rake Remastered ] — v1.2.0 | Solara Version 1.3"
 	Values.ScriptColor = Color3.fromRGB(193, 199, 255)
 
 
@@ -117,16 +117,18 @@ function inm.loadscript()
 		UiObjects.UILL1 = Instance.new("UIListLayout",UiObjects.Frame1)
 		UiObjects.UILL1.HorizontalAlignment = Enum.HorizontalAlignment.Center
 		UiObjects.UILL1.VerticalAlignment = Enum.VerticalAlignment.Center
-
+		UiObjects.UILL1.SortOrder = Enum.SortOrder.LayoutOrder
+		
 		UiObjects.Frame2 = Instance.new("Frame",UiObjects.Frame1)
 		UiObjects.Frame2.Position = UDim2.new(0.475, 0,0.5, 0)
 		UiObjects.Frame2.Size = UDim2.new(0.951, 0,0.946, 0)
 		UiObjects.Frame2.BackgroundTransparency = 1
 		UiObjects.Frame2.Interactable = false
 
-		UiObjects.UILL1 = Instance.new("UIListLayout",UiObjects.Frame2)
-		UiObjects.UILL1.HorizontalAlignment = Enum.HorizontalAlignment.Right
-		UiObjects.UILL1.VerticalAlignment = Enum.VerticalAlignment.Bottom
+		UiObjects.UILL2 = Instance.new("UIListLayout",UiObjects.Frame2)
+		UiObjects.UILL2.HorizontalAlignment = Enum.HorizontalAlignment.Right
+		UiObjects.UILL2.VerticalAlignment = Enum.VerticalAlignment.Bottom
+		UiObjects.UILL2.SortOrder = Enum.SortOrder.LayoutOrder
 
 		UiObjects.Label1 = Instance.new("TextLabel",UiObjects.Frame2)
 		UiObjects.Label1.Name = "Time"
@@ -139,6 +141,7 @@ function inm.loadscript()
 		UiObjects.Label1.TextColor3 = Color3.fromRGB(255,255,255)
 		UiObjects.Label1.TextXAlignment = Enum.TextXAlignment.Right
 		UiObjects.Label1.TextYAlignment = Enum.TextYAlignment.Center
+		UiObjects.Label1.LayoutOrder = 48
 
 		UiObjects.Label2 = Instance.new("TextLabel",UiObjects.Frame2)
 		UiObjects.Label2.Name = "RHealth"
@@ -151,7 +154,8 @@ function inm.loadscript()
 		UiObjects.Label2.TextColor3 = Color3.fromRGB(255,255,255)
 		UiObjects.Label2.TextXAlignment = Enum.TextXAlignment.Right
 		UiObjects.Label2.TextYAlignment = Enum.TextYAlignment.Center
-
+		UiObjects.Label2.LayoutOrder = 49
+		
 		UiObjects.Label3 = Instance.new("TextLabel",UiObjects.Frame2)
 		UiObjects.Label3.Name = "Power"
 		UiObjects.Label3.Text = string.upper("Station Power: ")
@@ -163,6 +167,72 @@ function inm.loadscript()
 		UiObjects.Label3.TextColor3 = Color3.fromRGB(255,255,255)
 		UiObjects.Label3.TextXAlignment = Enum.TextXAlignment.Right
 		UiObjects.Label3.TextYAlignment = Enum.TextYAlignment.Center
+		UiObjects.Label3.LayoutOrder = 50
+		
+		UiObjects.Label4 = Instance.new("TextLabel",UiObjects.Frame2)
+		UiObjects.Label4.Name = "nillo"
+		UiObjects.Label4.Text = string.upper("")
+		UiObjects.Label4.Size = UDim2.new(0, 70,0, 15)
+		UiObjects.Label4.Font = Cfg.FontS
+		UiObjects.Label4.TextSize = Cfg.TextSize
+		UiObjects.Label4.BackgroundTransparency = 1
+		UiObjects.Label4.TextStrokeTransparency = 0.9
+		UiObjects.Label4.TextColor3 = Color3.fromRGB(255,255,255)
+		UiObjects.Label4.TextXAlignment = Enum.TextXAlignment.Right
+		UiObjects.Label4.TextYAlignment = Enum.TextYAlignment.Center
+		UiObjects.Label4.LayoutOrder = 47
+		
+		UiObjects.Label5 = Instance.new("TextLabel",UiObjects.Frame2)
+		UiObjects.Label5.Name = "KA"
+		UiObjects.Label5.Text = string.upper("Kill-Aura: ")
+		UiObjects.Label5.Size = UDim2.new(0, 70,0, 15)
+		UiObjects.Label5.Font = Cfg.FontS
+		UiObjects.Label5.TextSize = Cfg.TextSize
+		UiObjects.Label5.BackgroundTransparency = 1
+		UiObjects.Label5.TextStrokeTransparency = 0.9
+		UiObjects.Label5.TextColor3 = Color3.fromRGB(255,255,255)
+		UiObjects.Label5.TextXAlignment = Enum.TextXAlignment.Right
+		UiObjects.Label5.TextYAlignment = Enum.TextYAlignment.Center
+		UiObjects.Label5.LayoutOrder = 46
+		
+		UiObjects.Label6 = Instance.new("TextLabel",UiObjects.Frame2)
+		UiObjects.Label6.Name = "HB"
+		UiObjects.Label6.Text = string.upper("Hitbox: ")
+		UiObjects.Label6.Size = UDim2.new(0, 70,0, 15)
+		UiObjects.Label6.Font = Cfg.FontS
+		UiObjects.Label6.TextSize = Cfg.TextSize
+		UiObjects.Label6.BackgroundTransparency = 1
+		UiObjects.Label6.TextStrokeTransparency = 0.9
+		UiObjects.Label6.TextColor3 = Color3.fromRGB(255,255,255)
+		UiObjects.Label6.TextXAlignment = Enum.TextXAlignment.Right
+		UiObjects.Label6.TextYAlignment = Enum.TextYAlignment.Center
+		UiObjects.Label6.LayoutOrder = 45
+		
+		UiObjects.Label7 = Instance.new("TextLabel",UiObjects.Frame2)
+		UiObjects.Label7.Name = "FB"
+		UiObjects.Label7.Text = string.upper("FullBright: ")
+		UiObjects.Label7.Size = UDim2.new(0, 70,0, 15)
+		UiObjects.Label7.Font = Cfg.FontS
+		UiObjects.Label7.TextSize = Cfg.TextSize
+		UiObjects.Label7.BackgroundTransparency = 1
+		UiObjects.Label7.TextStrokeTransparency = 0.9
+		UiObjects.Label7.TextColor3 = Color3.fromRGB(255,255,255)
+		UiObjects.Label7.TextXAlignment = Enum.TextXAlignment.Right
+		UiObjects.Label7.TextYAlignment = Enum.TextYAlignment.Center
+		UiObjects.Label7.LayoutOrder = 44
+		
+		UiObjects.Label8 = Instance.new("TextLabel",UiObjects.Frame2)
+		UiObjects.Label8.Name = "TC"
+		UiObjects.Label8.Text = string.upper("Third-Cam: ")
+		UiObjects.Label8.Size = UDim2.new(0, 70,0, 15)
+		UiObjects.Label8.Font = Cfg.FontS
+		UiObjects.Label8.TextSize = Cfg.TextSize
+		UiObjects.Label8.BackgroundTransparency = 1
+		UiObjects.Label8.TextStrokeTransparency = 0.9
+		UiObjects.Label8.TextColor3 = Color3.fromRGB(255,255,255)
+		UiObjects.Label8.TextXAlignment = Enum.TextXAlignment.Right
+		UiObjects.Label8.TextYAlignment = Enum.TextYAlignment.Center
+		UiObjects.Label8.LayoutOrder = 43
 	end)
 
 	Funcs.StatUi = function(Mode)
@@ -204,7 +274,15 @@ function inm.loadscript()
 			UiObjects.Label1.Text = string.upper("Time: "..resulttime)
 			UiObjects.Label2.Text = string.upper("Rake's Health: "..rhp).."%"
 			UiObjects.Label3.Text = string.upper("Station Power: "..pwrlvl).."%"
+			
+			UiObjects.Label4.Text = ""
+			
+			UiObjects.Label5.Text = tostring(Values.KillAura)
+			UiObjects.Label6.Text = tostring(Values.Hitbox)
+			UiObjects.Label7.Text = tostring(Values.FullBright)
+			UiObjects.Label8.Text = tostring(Values.ThirdCamera)
 
+			
 			if seconds < 21 then
 				UiObjects.Label1.TextColor3 = Color3.fromRGB(255, 64, 64)
 			else
@@ -216,15 +294,18 @@ function inm.loadscript()
 			else
 				UiObjects.Label2.TextColor3 = Color3.fromRGB(255, 255, 255)
 			end
-
 			
 			if WS:FindFirstChild("Rake") then
-				if rhp < 10 then
-					UiObjects.Label3.TextColor3 = Color3.fromRGB(255, 64, 64)
-				else
-					UiObjects.Label3.TextColor3 = Color3.fromRGB(255, 255, 255)
+				if WS["Rake"]:FindFirstChild("Monster") then
+					if rhp ~= nil then
+						if rhp < 10 then
+							UiObjects.Label3.TextColor3 = Color3.fromRGB(255, 64, 64)
+						else
+							UiObjects.Label3.TextColor3 = Color3.fromRGB(255, 255, 255)
+						end
+					end
 				end
-			end
+			end			
 		end
 	end
 	
@@ -272,8 +353,8 @@ function inm.loadscript()
 
 	coroutine.wrap(function()
 		while true do task.wait()
-			if Values.FullBright then
-				game.Lighting.Brightness = 3
+			if Values.FullBright == true then
+				game.Lighting.ExposureCompensation = 2
 				if not game.Lighting:FindFirstChild("ATM") then
 					local v = Instance.new("Atmosphere",game.Lighting)
 					v.Name = "ATM"
