@@ -212,17 +212,17 @@ function inm.loadscript()
 			end
 
 			if pwrlvl < 5 then
-				UiObjects.Label1.TextColor3 = Color3.fromRGB(255, 64, 64)
+				UiObjects.Label2.TextColor3 = Color3.fromRGB(255, 64, 64)
 			else
-				UiObjects.Label1.TextColor3 = Color3.fromRGB(255, 255, 255)
+				UiObjects.Label2.TextColor3 = Color3.fromRGB(255, 255, 255)
 			end
 
 			
 			if WS:FindFirstChild("Rake") then
 				if rhp < 10 then
-					UiObjects.Label1.TextColor3 = Color3.fromRGB(255, 64, 64)
+					UiObjects.Label3.TextColor3 = Color3.fromRGB(255, 64, 64)
 				else
-					UiObjects.Label1.TextColor3 = Color3.fromRGB(255, 255, 255)
+					UiObjects.Label3.TextColor3 = Color3.fromRGB(255, 255, 255)
 				end
 			end
 		end
