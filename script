@@ -1,1 +1,242 @@
 
+-- FULLY REWRITED DATA: 	29.11.2024, 3:30 AM | kirvZZ | script version (v1.1, Solara) | game version (v1.2.0) |
+
+local PlayerService =					game:GetService("Players")
+local ReplicatedStorage = 				game:GetService("ReplicatedStorage")
+local StarterGui =						game:GetService("StarterGui")
+local LocalPlayer = 					PlayerService.LocalPlayer
+
+local PlaceTable = { 2413927524 }
+local inm = {}
+
+function inm.loadscript()
+	_G.SetupRakeRemKey = Enum.KeyCode.Insert
+	_G.EnabledJJSXKSGA = false
+
+	local Loadstrings = {}
+
+	local Libs = {}
+	local Windows = {}
+
+	local Pages = {}
+	local Sections = {}
+
+	local Values = {}
+
+	local Toggles = {}
+	local Sliders = {}
+	local Keybinds = {}
+
+	local Funcs = {}
+	
+	local MC = {
+		UPDTIME = 0.1,
+		IS_ENABLED = true,
+	}
+	
+	--Customizing library before load
+	Values.ScriptName = "[ Rake Remastered ] — v1.2.0 | Solara Version"
+	Values.ScriptColor = Color3.fromRGB(193, 199, 255)
+
+
+	--Load library
+	Libs.Splix = loadstring(game:HttpGet("https://raw.githubusercontent.com/kirvZZ/Rake/refs/heads/main/Library"))()
+	Windows.Window1 = Libs.Splix:New({Name = Values.ScriptName, Accent = Values.ScriptColor})
+
+	
+	Pages.Combat = Windows.Window1:Page({Name = "Combat"})
+	Pages.Visual = Windows.Window1:Page({Name = "Visual"})
+	Pages.Misc = Windows.Window1:Page({Name = "Misc"})
+
+	
+	-- Combat
+	Sections.StunStick = Pages.Combat:Section({Name = "StunStick", Side = "Left"})
+	
+	
+	-- Visual
+	--Sections.Esp1 = Pages.Visual:Section({Name = "Esp", Side = "Left"})
+	Sections.Fullbright = Pages.Visual:Section({Name = "FullBright", Side = "Left"})
+
+
+	-- Misc
+--	Sections.SpeedHack = Pages.Misc:Section({Name = "Speed", Side = "Left"})
+	
+	Sections.CameraHack = Pages.Misc:Section({Name = "Camera", Side = "Right"})
+
+	--Sections.Other = Pages.Misc:Section({Name = "Other", Side = "Right"})
+	Sections.Menu = Pages.Misc:Section({Name = "UI", Side = "Right"})
+
+
+	-- Values
+	Values.ThirdCamera = 			false		-- LocalPlayer
+	Values.LockCameraZ =			false		-- LocalPlayer
+	Values.Speed = 					false		-- LocalPlayer
+	Values.RakeEsp = 				false		-- LocalPlayer
+	Values.PlayerEsp = 				false		-- LocalPlayer
+	Values.Hitbox =					false		-- LocalPlayer
+	Values.KillAura =				false		-- LocalPlayer
+	Values.FullBright =				false		-- LocalPlayer
+	
+	-- Mods
+	Values.SpeedValue = 1
+	Values.MaxZoom = 15
+	
+	
+	
+	
+	local Rake = nil
+	local SS = nil
+	
+	
+	-- Funcs
+	for _,link in Loadstrings do
+		loadstring(game:HttpGet(link))()
+	end
+	
+	Funcs.ThirdCamera = function(Mode)
+		if Mode then
+			if not LocalPlayer then return end 
+			LocalPlayer.CameraMaxZoomDistance = Values.MaxZoom
+			if Values.LockCameraZ then LocalPlayer.CameraMinZoomDistance = Values.MaxZoom end
+
+			LocalPlayer.PlayerScripts.PlayerModule.CameraModule.MouseLockController.BoundKeys.Value = "LeftControl,RightControl"
+			LocalPlayer.DevEnableMouseLock = true
+		else
+			if not LocalPlayer then return end 
+			LocalPlayer.CameraMaxZoomDistance = 0.5
+			LocalPlayer.CameraMinZoomDistance = 0.5
+
+			LocalPlayer.PlayerScripts.PlayerModule.CameraModule.MouseLockController.BoundKeys.Value = "LeftShift,RightShift"
+			LocalPlayer.DevEnableMouseLock = false
+		end
+	end
+	
+	Funcs.Hitbox = function(Mode)
+		if not LocalPlayer.Character then return end 
+		local Stick = LocalPlayer.Character:FindFirstChild("StunStick") or LocalPlayer.Backpack:FindFirstChild("StunStick") or nil
+		if Stick == nil then SS = nil return else SS = Stick end
+		
+		if Mode then
+			Stick.HitPart.Size = Vector3.new(15,15,15)
+		else
+			Stick.HitPart.Size = Vector3.new(1.5,1.5,1.5)
+		end
+	end
+	
+	Funcs.KillAura = function(Mode)
+		if Rake and SS and LocalPlayer.Character then
+			if SS.Parent.Name == "Backpack" then return end
+			if (Rake:FindFirstChild("HumanoidRootPart").Position - LocalPlayer.Character["HumanoidRootPart"].Position).Magnitude < 14 then
+				SS:Activate()
+			end
+		else
+			return
+		end
+	end
+	
+	coroutine.wrap(function()
+		while true do task.wait()
+			if Values.FullBright then
+				game.Lighting.Brightness = 3
+				if not game.Lighting:FindFirstChild("ATM") then
+					local v = Instance.new("Atmosphere",game.Lighting)
+					v.Name = "ATM"
+					v.Density = 0
+					v.Offset = 0
+				end
+			else
+				if game.Lighting:FindFirstChild("ATM") then
+					game.Lighting["ATM"]:Destroy()
+				end
+			end
+		end
+	end)()
+	
+	
+	-- Main
+	coroutine.wrap(function()
+		while MC.IS_ENABLED do task.wait(MC.UPDTIME)
+			if Values.KillAura == true then Funcs.KillAura() end
+			if Values.Hitbox == true then Funcs.Hitbox(true) else Funcs.Hitbox(false) end
+			if Values.ThirdCamera == true then Funcs.ThirdCamera(true) else Funcs.ThirdCamera(false) end
+
+		end
+	end)()
+	
+	-- Window's interface
+
+
+	-- Speed
+	Sections.StunStick:Toggle({Title = "KillAura",Default = Values.KillAura,Callback = function(Default) 
+		Values.KillAura = Default
+	end})
+	
+	Sections.StunStick:Toggle({Title = "Hitbox",Default = Values.Hitbox,Callback = function(Default) 
+		Values.Hitbox = Default
+	end})
+	
+	Sections.CameraHack:Toggle({Title = "Camera",Default = Values.ThirdCamera,Callback = function(Default) 
+		Values.ThirdCamera = Default
+	end})
+	
+	Sections.Fullbright:Toggle({Title = "Camera",Default = Values.FullBright,Callback = function(Default) 
+		Values.FullBright = Default
+	end})
+	
+	--[[Sections.SpeedHack:Slider({Name = "Speed-Modifier", Minimum = 0, Maximum = 20, Default = Values.SpeedValue, Decimals = 0.1, Pointer = Values.SpeedValue,Callback = function(Default)
+		Values.SpeedValue = Default
+		Funcs.Speed(3)
+	end})]]
+
+	--[[Sections.Esp1:Toggle({Title = "Esp Enabled",Default = false,Callback = function(Default) 
+		Values.Esp1 = Default
+		Funcs.Esp1(Default)
+	end})]]
+
+	Sections.Menu:Keybind({Name = "Hide UI", Default = _G.SetupRakeRemKey, KeybindName = "Readjustment", Mode = "Toggle", Pointer = _G.SetupRakeRemKey,Callback = function(Default) 
+		_G.SetupRakeRemKey = Default
+	end})
+
+	Windows.Window1:Initialize()
+end
+
+function inm.prestart()
+	if game.CoreGui:FindFirstChild("SplixCode9") then
+		StarterGui:SetCore("SendNotification",{
+			Title = "wware",
+			Text = "Script already executed.",
+			Duration = 10
+		})
+	else
+		local D94LDSK38D1KSDG = Instance.new("BoolValue",game.CoreGui)
+		D94LDSK38D1KSDG.Name = "SplixCode9"
+		if D94LDSK38D1KSDG then
+			inm.loadscript()
+		end
+	end
+end
+
+function inm.check()
+	local Id = game.PlaceId
+	if table.find(PlaceTable,Id) then
+		inm.prestart()
+	else
+		StarterGui:SetCore("SendNotification",{
+			Title = "wware",
+			Text = "Script doesn't support this game.",
+			Duration = 10
+		})
+	end
+end
+
+inm.check()
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+--END--------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
