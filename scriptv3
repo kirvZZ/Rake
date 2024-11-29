@@ -1,5 +1,5 @@
 
--- FULLY REWRITED DATA: 	29.11.2024, 3:30 AM | kirvZZ | script version (v1.3, Solara) | game version (v1.2.0) |
+-- FULLY REWRITED DATA: 	29.11.2024, 3:30 AM | kirvZZ | script version (v1.4, Solara) | game version (v1.2.0) |
 
 local PlayerService =					game:GetService("Players")
 local ReplicatedStorage = 				game:GetService("ReplicatedStorage")
@@ -36,7 +36,7 @@ function inm.loadscript()
 	}
 
 	--Customizing library before load
-	Values.ScriptName = "[ Rake Remastered ] — v1.2.0 | Solara Version 1.3"
+	Values.ScriptName = "[ Rake Remastered ] — v1.2.0 | Solara Version 1.4"
 	Values.ScriptColor = Color3.fromRGB(193, 199, 255)
 
 
@@ -277,10 +277,10 @@ function inm.loadscript()
 			
 			UiObjects.Label4.Text = ""
 			
-			UiObjects.Label5.Text = tostring(Values.KillAura)
-			UiObjects.Label6.Text = tostring(Values.Hitbox)
-			UiObjects.Label7.Text = tostring(Values.FullBright)
-			UiObjects.Label8.Text = tostring(Values.ThirdCamera)
+			UiObjects.Label5.Text = tostring("Kill-Aura: "..Values.KillAura)
+			UiObjects.Label6.Text = tostring("Hitbox: "..Values.Hitbox)
+			UiObjects.Label7.Text = tostring("FullBright: "..Values.FullBright)
+			UiObjects.Label8.Text = tostring("Third-Camera: "..Values.ThirdCamera)
 
 			
 			if seconds < 21 then
@@ -353,8 +353,8 @@ function inm.loadscript()
 
 	coroutine.wrap(function()
 		while true do task.wait()
-			if Values.FullBright == true then
-				game.Lighting.ExposureCompensation = 2
+			if Values.FullBright then
+				game.Lighting.Brightness = 3
 				if not game.Lighting:FindFirstChild("ATM") then
 					local v = Instance.new("Atmosphere",game.Lighting)
 					v.Name = "ATM"
