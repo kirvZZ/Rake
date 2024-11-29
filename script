@@ -1,5 +1,5 @@
 
--- FULLY REWRITED DATA: 	29.11.2024, 3:30 AM | kirvZZ | script version (v1.1, Solara) | game version (v1.2.0) |
+-- FULLY REWRITED DATA: 	29.11.2024, 3:30 AM | kirvZZ | script version (v1.2, Solara) | game version (v1.2.0) |
 
 local PlayerService =					game:GetService("Players")
 local ReplicatedStorage = 				game:GetService("ReplicatedStorage")
@@ -172,7 +172,7 @@ function inm.loadscript()
 			UiObjects.InsteadScreen.Enabled = false
 		end
 
-		if Mode == true then
+		if Mode then
 			local resulttime = nil
 			local seconds = game:GetService("ReplicatedStorage").Timer.Value
 			local minutes
@@ -194,7 +194,7 @@ function inm.loadscript()
 			end
 
 			local pwrlvl = nil
-			local power = game:GetService("ReplicatedStorage").PowerValues.PowerValue
+			local power = game:GetService("ReplicatedStorage").PowerValues.PowerLevel
 			pwrlvl = math.floor(power.Value/power.MaxValue*100)
 
 			UiObjects.Label1.Text = string.upper("Time: "..resulttime)
@@ -304,7 +304,7 @@ function inm.loadscript()
 		Values.Hitbox = Default
 	end})
 
-	Sections.CameraHack:Toggle({Title = "Camera",Default = Values.ThirdCamera,Callback = function(Default) 
+	Sections.CameraHack:Toggle({Title = "Third-Camera",Default = Values.ThirdCamera,Callback = function(Default) 
 		Values.ThirdCamera = Default
 	end})
 
